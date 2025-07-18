@@ -8,3 +8,34 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+.centered {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-family: sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.button.green {
+  background-color: #28a745;
+}
+
+.button:hover {
+  background-color: #0056b3; /* чуть темнее при наведении */
+  cursor: pointer;
+}
+
+.button.green:hover {
+  background-color: #1e7e34;
+}
