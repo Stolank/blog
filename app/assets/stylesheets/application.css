@@ -39,3 +39,16 @@
 .button.green:hover {
   background-color: #1e7e34;
 }
+
+nav {
+  background: #333;       /* Фон меню (тёмно-серый) */
+  padding: 10px;          /* Отступы внутри меню */
+}
+nav a {
+  color: white;           /* Цвет текста ссылок */
+  text-decoration: none;  /* Убираем подчёркивание */
+  margin-right: 15px;     /* Расстояние между ссылками */
+}
+nav a:hover {
+  color: #ffd700;         /* Цвет ссылки при наведении (золотой) */
+}

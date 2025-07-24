@@ -1,8 +1,17 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_api_key
   protect_from_forgery with: :null_session
   
   def index
     products = Product.all
+
+    products = products.where("name LIKE ?", "%#{params[:name]}%") if params[:name].present? # Фильтрация по имени 
+
+    products = products.where("price >= ?", params[:min_price]) if params[:min_price].present? # Фильтрация по цене 
+    products = products.where("price <= ?", params[:max_price]) if params[:max_price].present?
+
+    products = products.page(params[:page]).per(params[:per_page] || 5) # Пагинация
+
     render json: products
   end
 
