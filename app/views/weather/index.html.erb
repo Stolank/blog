@@ -1,0 +1,16 @@
+<% content_for :title, "Погода" %>
+
+<div class="card">
+  <h1>Погода</h1>
+  <%= form_with url: "/weather", method: :get, local: true do %>
+    <label for="city">Город:</label>
+    <input id="city" type="text" name="city" value="<%= params[:city] || 'Almaty' %>">
+    <input type="submit" value="Показать">
+  <% end %>
+</div>
+
+<div class="card">
+  <h2><%= @city || '—' %></h2>
+  <p>Температура: <%= @temp.present? ? "#{@temp} °C" : '—' %></p>
+  <p>Описание: <%= @desc || '—' %></p>
+</div>

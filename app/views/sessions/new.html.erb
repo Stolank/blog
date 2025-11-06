@@ -1,0 +1,12 @@
+<h1>Вход</h1>
+
+<%= form_with url: login_path, method: :post, local: true do %>
+<div>
+    <label for="email">Email</label><br>
+    <%= email_field_tag :email, params[:email], required: true %>
+    </div>
+
+    <div style="margin-top:12px;">
+        <%= submit_tag "Войти" %>
+        </div>
+        <% end %>

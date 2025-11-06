@@ -1,28 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
-    <title><%= content_for(:title) || "Blog" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title><%= content_for?(:title) ? yield(:title) : "Week 7 — Rails" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
-
   <body>
-    <%= yield %>
+     <% if notice.present? %>
+  <div class="flash flash--notice" style="background:#e6ffed; border:1px solid #b7eb8f; padding:8px 12px; border-radius:6px; margin:10px;">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if alert.present? %>
+  <div class="flash flash--alert" style="background:#ffecec; border:1px solid #ffb3b3; padding:8px 12px; border-radius:6px; margin:10px;">
+    <%= alert %>
+  </div>
+  <% end %>
+    <header class="site-header">
+      <div class="container header-row">
+        <h1 class="brand">OldSchool • Rails</h1>
+        <nav class="nav">
+          <%= link_to "Главная", root_path, class: (request.path == "/" ? "active" : nil) %>
+          <%= link_to "Погода", weather_path, class: (request.path.start_with?("/weather") ? "active" : nil) %>
+
+          <% if logged_in? %>
+          <span style="margin-left:12px;">Вошёл: <%= current_user.name %> (<%= current_user.role %>)</span>
+
+          <% if admin? %>
+          <%= link_to "Админ-панель", admin_dashboard_path, style: "margin-left:12px;" %>
+          <% end %>
+
+          <%= button_to "Выйти", logout_path, method: :delete, form: {style: "display:inline; margin-left:12px;"} %>
+          <% else %>
+          <%= link_to "Войти", login_path, style: "margin-left:12px;" %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© <%= Time.current.year %> OldSchool Journal</small>
+      </div>
+    </footer>
   </body>
 </html>

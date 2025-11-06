@@ -1,0 +1,10 @@
+<h1>Редактировать город</h1>
+
+<%= render "form", city: @city %>
+
+<p>
+
+<p>
+  <%= link_to "Показать", city_path(@city) %> |
+  <%= link_to "Назад к списку", cities_path %>
+</p>

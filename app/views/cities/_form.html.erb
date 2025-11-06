@@ -1,0 +1,31 @@
+<%= form_with(model: @city, local: true) do |f| %>
+  <% if @city.errors.any? %>
+    <div class="alert alert-error">
+      <h4><%= pluralize(@city.errors.count, "error") %> prevented saving:</h4>
+      <ul>
+        <% @city.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+        </ul>
+        </div>
+        <% end %>
+
+        <div class="field">
+        <%= f.label :name, "Название города" %><br>
+        <%= f.text_field :name, required: true %>
+        </div>
+
+        <div class="field">
+        <%= f.label :country, "Страна" %><br>
+        <%= f.text_field :country, required: true %>
+        </div>
+
+        <div class="field">
+        <% f.label :last_temp, "Последняя температура (°C)" %><br>
+        <%= f.number_field :last_temp %>
+        </div>
+
+        <div class="actions">
+        <%= f.submit "Сохранить город", style: "background:#ccc; padding:6px 12px; border:1px solid #333;" %>
+        </div>
+        <% end %>

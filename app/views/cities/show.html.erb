@@ -1,0 +1,9 @@
+<h1><%= @city.name %></h1>
+
+<p><strong>Страна:</strong> <%= @city.country %></p>
+<p><strong>Температура:</strong> <%= @city.last_temp %> °C</p>
+
+<p>
+  <%= link_to "Редактировать", edit_city_path(@city) %> |
+  <%= link_to "Назад к списку", cities_path %>
+</p>
