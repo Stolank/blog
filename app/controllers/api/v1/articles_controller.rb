@@ -7,8 +7,8 @@ module Api
 
         # Поиск ?q=ruby
             if params[:q].present?
-          q = "%#{params[:q]}%"
-          scope = scope.where("title LIKE ? COLLATE NOCASE", q)
+          query = "%#{params[:q].downcase}%"
+          scope = scope.where("LOWER(title) LIKE :q", q: query)
         end
 
         scope = scope.order(created_at: :desc)
