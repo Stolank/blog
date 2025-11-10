@@ -65,3 +65,7 @@ end
 gem "httparty", "~> 0.23.1"
 
 gem "kaminari"
+
+gem "device", "~> 0.0.0"
+
+gem "devise", "~> 4.9"

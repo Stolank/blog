@@ -27,17 +27,19 @@
           <%= link_to "Главная", root_path, class: (request.path == "/" ? "active" : nil) %>
           <%= link_to "Погода", weather_path, class: (request.path.start_with?("/weather") ? "active" : nil) %>
 
-          <% if logged_in? %>
-          <span style="margin-left:12px;">Вошёл: <%= current_user.name %> (<%= current_user.role %>)</span>
+          <% if user_signed_in? %>
+        <span style="margin-left:12px;">
+          Вошёл: <%= current_user.email %>
+        </span>
 
-          <% if admin? %>
-          <%= link_to "Админ-панель", admin_dashboard_path, style: "margin-left:12px;" %>
-          <% end %>
-
-          <%= button_to "Выйти", logout_path, method: :delete, form: {style: "display:inline; margin-left:12px;"} %>
-          <% else %>
-          <%= link_to "Войти", login_path, style: "margin-left:12px;" %>
-          <% end %>
+        <%= button_to "Выйти",
+                      destroy_user_session_path,
+                      method: :delete,
+                      form: { style: "display:inline; margin-left:12px;" } %>
+      <% else %>
+        <%= link_to "Войти", new_user_session_path, style: "margin-left:12px;" %>
+        <%= link_to "Регистрация", new_user_registration_path, style: "margin-left:12px;" %>
+      <% end %>
         </nav>
       </div>
     </header>
