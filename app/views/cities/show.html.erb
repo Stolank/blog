@@ -4,6 +4,8 @@
 <p><strong>Температура:</strong> <%= @city.last_temp %> °C</p>
 
 <p>
-  <%= link_to "Редактировать", edit_city_path(@city) %> |
+  <% if current_user&.admin? %>
+    <%= link_to "Редактировать", edit_city_path(@city) %> |
+  <% end %>
   <%= link_to "Назад к списку", cities_path %>
 </p>

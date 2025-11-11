@@ -1,5 +1,7 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :require_admin, except: %i[index show]
 
   # GET /cities or /cities.json
   def index

@@ -1,8 +1,10 @@
 <h1>Города</h1>
 
-<p>
-  <%= link_to "Добавить город", new_city_path, class: "btn" %>
-</p>
+<% if current_user&.admin? %>
+  <p>
+    <%= link_to "Добавить город", new_city_path, class: "btn" %>
+  </p>
+<% end %>
 
 <table>
   <thead>
@@ -21,9 +23,11 @@
         <td><%= city.country %></td>
         <td><%= city.last_temp %></td>
         <td>
-          <%= link_to "Показать", city_path(city) %> |
-          <%= link_to "Редактировать", edit_city_path(city) %> |
-          <%= button_to "Удалить", city_path(city), method: :delete %>     
+          <%= link_to "Показать", city_path(city) %>
+          <% if current_user&.admin? %>
+            | <%= link_to "Редактировать", edit_city_path(city) %>
+            | <%= button_to "Удалить", city_path(city), method: :delete, form: { style: "display:inline;" } %>
+          <% end %>
         </td>
       </tr>
     <% end %>

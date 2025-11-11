@@ -13,4 +13,6 @@
   <% end %>
 </div>
 
-<%= link_to "New article", new_article_path %>
+<% if current_user&.admin? %>
+  <%= link_to "New article", new_article_path %>
+<% end %>

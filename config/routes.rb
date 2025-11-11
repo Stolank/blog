@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :cities
+  resources :articles
 
   get    "/login",  to: "sessions#new"
   post   "/login",  to: "sessions#create"

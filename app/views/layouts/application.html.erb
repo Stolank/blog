@@ -26,6 +26,9 @@
         <nav class="nav">
           <%= link_to "Главная", root_path, class: (request.path == "/" ? "active" : nil) %>
           <%= link_to "Погода", weather_path, class: (request.path.start_with?("/weather") ? "active" : nil) %>
+          <% if current_user&.admin? %>
+            <%= link_to "Админ-панель", admin_dashboard_path, class: (request.path.start_with?("/admin") ? "active" : nil) %>
+          <% end %>
 
           <% if user_signed_in? %>
         <span style="margin-left:12px;">
