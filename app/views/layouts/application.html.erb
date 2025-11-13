@@ -35,10 +35,10 @@
           Вошёл: <%= current_user.email %>
         </span>
 
-        <%= button_to "Выйти",
+        <%= link_to "Выйти",
                       destroy_user_session_path,
-                      method: :delete,
-                      form: { style: "display:inline; margin-left:12px;" } %>
+                      data: { turbo_method: :delete },
+                      style:  "margin-left:12px;" %>
       <% else %>
         <%= link_to "Войти", new_user_session_path, style: "margin-left:12px;" %>
         <%= link_to "Регистрация", new_user_registration_path, style: "margin-left:12px;" %>
