@@ -1,9 +1,56 @@
-module Admin 
-  class DashboardController < ApplicationController
-    before_action :require_admin
+class DashboardController < ApplicationCintroller
+  before_action  :authenticate_user!
+  before_action  :require_admin
 
-    def index
-      
-    end
+  def index
+    
   end
+
+  private
+
+  
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

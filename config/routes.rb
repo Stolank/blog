@@ -1,20 +1,22 @@
 Rails.application.routes.draw do
-  devise_for :users
   root "pages#home"
+
+  devise_for :users
+
   get "weather", to: "weather#index"
-
-  namespace :admin do
-    get "dashboard", to: "dashboard#index"
-  end
-
-  resources :cities
-  resources :articles
 
   get    "/login",  to: "sessions#new"
   post   "/login",  to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
-  
+  namespace :admin do
+    get "dashboard", to: "dashboard#index"
+  end
+  # CRUD
+  resources :cities
+  resources :articles
+
+  # API
   namespace :api do
     namespace :v1 do
       resources :comments, only: [:index]
