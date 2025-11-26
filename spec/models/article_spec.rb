@@ -7,8 +7,13 @@ RSpec.describe Article, type: :model do
     expect(article).to be_invalid
   end
   
-  it "is valid with a title and content" do 
-  article = Article.new(title: "My title", content: "Some text")
-  expect(article).to be_valid
+    it "is valid with a title and content" do 
+    article = Article.new(title: "My title", content: "Some text")
+    expect(article).to be_valid
   end
+
+    it "is invalid without content" do
+     article =Article.new(title: "My title")
+     expect(article).to be_invalid
+   end
 end
