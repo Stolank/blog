@@ -32,4 +32,10 @@ RSpec.describe "Articles admin access", type: :system do
     expect(page).to have_current_path("/")
     expect(page).to have_content("Недостаточно прав для доступа к этой странице.")
   end
+
+  it "does not allow guest to open new article page" do 
+    visit "articles/new"
+
+    expect(page).to have_current_path("/users/sign_in")
+  end
 end
