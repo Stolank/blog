@@ -38,4 +38,59 @@ RSpec.describe "Articles admin access", type: :system do
 
     expect(page).to have_current_path("/users/sign_in")
   end
+
+  it "allow admin to open edit article page" do 
+    admin = User.create!(
+      name: "Admin",
+      email: "admin@example.com",
+      password: "password123",
+      role: "admin"
+    )
+    
+    article = Article.create!(
+      title: "Test article",
+      content: "Some content"
+    )
+
+    login_as(admin, scope: :user)
+    
+    visit "/articles/#{article.id}/edit"
+
+    expect(page).to have_current_path("/articles/#{article.id}/edit")
+    expect(page).to have_content("Title")
+  end
+
+  it "does not allow  regular user to open edit article page" do 
+    user = User.create!(
+      name: "User",
+      email: "user@example.com",
+      password: "password123",
+      role: "user"
+   )
+
+    article = Article.create!( 
+       title: "Test article",
+       content: "Some content"
+
+   )
+
+    login_as(user, scope: :user)
+
+    visit "/articles/#{article.id}/edit"
+   
+    expect(page).to have_current_path("/")
+    expect(page).to have_content("Недостаточно прав для доступа к этой странице.")
+  end
+
+  it "does not allow guest to open edit article page" do 
+    article = Article.create!(
+      title: "Test article",
+      content: "Some content"
+    )
+
+    visit "/articles/#{article.id}/edit"
+
+    expect(page).to have_current_path("/users/sign_in")
+  end
 end
+
