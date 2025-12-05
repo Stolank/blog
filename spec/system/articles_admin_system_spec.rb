@@ -92,5 +92,60 @@ RSpec.describe "Articles admin access", type: :system do
 
     expect(page).to have_current_path("/users/sign_in")
   end
-end
 
+  it "allows admin to delete an article" do
+    admin = User.create!(
+      name: "Admin",
+      email: "admin@example.com",
+      password: "password123",
+      role: "admin"
+  )
+
+  article = Article.create(
+    title: "Test article",
+    content: "Some content"
+  )
+
+    login_as(admin, scope: :user)
+
+    visit "/articles/#{article.id}"
+ 
+    click_button "Destroy this article"
+
+    expect(page).to have_current_path("/articles")
+    expect(page).to have_no_content("Test article")
+  end
+
+  it "does not allow regular user to delete an article" do 
+    user = User.create!(
+      name: "User",
+      email: "user@example.com",
+      password: "password123",
+      role: "user"
+    )
+
+    article = Article.create!(
+      title: "Test article",
+      content: "Some content"
+    )
+    
+    login_as(user, scope: :user)
+
+    visit "/articles/#{article.id}"    
+
+    expect(page).to have_current_path("/articles/#{article.id}")
+    expect(page).to have_no_button("Destroy this article.")     
+  end
+ 
+  it "does not allow guest to delete an article" do 
+    article = Article.create!(
+      title: "Test article",
+      content: "Some content"
+    )
+
+    visit "/articles/#{article.id}"
+
+    expect(page).to have_current_path("/articles/#{article.id}")
+    expect(page).to have_no_button("Destroy this article")
+  end
+end
