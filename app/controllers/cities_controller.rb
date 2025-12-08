@@ -24,6 +24,7 @@ class CitiesController < ApplicationController
   # POST /cities or /cities.json
   def create
     @city = City.new(city_params)
+
     if @city.save
       redirect_to @city, notice: "City was successfully created."
     else
@@ -35,7 +36,7 @@ class CitiesController < ApplicationController
   def update
     if @city.update(city_params)
       redirect_to @city, notice: "City was successfully updated.", status: :see_other
-      else
+    else
       render :edit, status: :unprocessable_entity
     end
   end
