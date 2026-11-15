@@ -7,6 +7,11 @@
 # Ignore bundler config.
 /.bundle
 
+# Local Django environment and generated files.
+/.venv/
+__pycache__/
+/django_blog/db.sqlite3*
+
 # Ignore all environment files.
 /.env*
 
