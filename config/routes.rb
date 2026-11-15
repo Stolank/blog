@@ -5,9 +5,7 @@ Rails.application.routes.draw do
 
   get "weather", to: "weather#index"
 
-  get    "/login",  to: "sessions#new"
-  post   "/login",  to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  get "/login", to: redirect("/users/sign_in", status: 302)
 
   namespace :admin do
     get "dashboard", to: "dashboard#index"

@@ -30,10 +30,12 @@ html, body {
 .container { max-width: 980px; margin: 0 auto; padding: 16px; }
 
 .site-header { background: var(--ink); color: #fff; }
-.header-row { display:flex; align-items:center; justify-content:space-between; }
+.header-row { display:flex; flex-wrap:wrap; gap:12px 20px; align-items:center; justify-content:space-between; }
 .brand { margin:0; font-size: 20px; }
 
-.nav a { color:#fff; text-decoration:none; margin-left:16px; }
+.nav { display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; min-width:0; }
+.nav span { overflow-wrap:anywhere; }
+.nav a { color:#fff; text-decoration:none; }
 .nav a:hover { text-decoration: underline; }
 .nav a.active { font-weight:700; text-decoration:underline; }
 

@@ -1,24 +1,42 @@
-# README
+# OldSchool Journal
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Учебный блог на Ruby on Rails. В меню можно открыть статьи, список городов,
+прогноз погоды и формы регистрации и входа. Управление статьями и городами
+доступно администратору.
 
-Things you may want to cover:
+## Локальный запуск
 
-* Ruby version
+Откройте терминал в папке `blog`. Установите Ruby 3.3 и Bundler 2.7.1.
+В Windows используйте [RubyInstaller с Devkit](https://rubyinstaller.org/downloads/).
+Devkit содержит инструменты, которые нужны для сборки некоторых библиотек Ruby.
 
-* System dependencies
+```text
+gem install bundler -v 2.7.1
+```
 
-* Configuration
+В Windows добавьте поддержку вашей платформы в список версий библиотек:
 
-* Database creation
+```text
+bundle _2.7.1_ lock --add-platform x64-mingw-ucrt
+```
 
-* Database initialization
+Установите библиотеки, подготовьте локальную базу данных и запустите сайт:
 
-* How to run the test suite
+```text
+bundle _2.7.1_ install
+bundle _2.7.1_ exec ruby bin/rails db:prepare
+bundle _2.7.1_ exec ruby bin/rails server -b 127.0.0.1
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Когда сервер запустится, откройте [http://127.0.0.1:3000](http://127.0.0.1:3000).
+Остановить сервер можно сочетанием `Ctrl+C` в терминале.
 
-* Deployment instructions
+Данные локального сайта хранятся в `storage/development.sqlite3`. При первом
+запуске создаётся новая база. В Git сохранён код проекта и описание структуры
+базы. Для возврата старых записей нужен прежний файл базы или его резервная копия.
 
-* ...
+## Проверка главной страницы и входа
+
+```text
+bundle _2.7.1_ exec ruby bin/rails test test/controllers/pages_controller_test.rb test/controllers/sessions_controller_test.rb test/controllers/admin/dashboard_controller_test.rb
+```
