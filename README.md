@@ -35,8 +35,11 @@ bundle _2.7.1_ exec ruby bin/rails server -b 127.0.0.1
 запуске создаётся новая база. В Git сохранён код проекта и описание структуры
 базы. Для возврата старых записей нужен прежний файл базы или его резервная копия.
 
-## Проверка главной страницы и входа
+## Документация
 
-```text
-bundle _2.7.1_ exec ruby bin/rails test test/controllers/pages_controller_test.rb test/controllers/sessions_controller_test.rb test/controllers/admin/dashboard_controller_test.rb
-```
+| Файл | Что в нём |
+| --- | --- |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Как Rails открывает страницу, где находятся данные и как проверяются права. |
+| [TESTING.md](docs/TESTING.md) | Команды автотестов и шаги проверки в браузере. |
+| [STATUS.md](docs/STATUS.md) | Из какой ветки восстановлен блог, что проверено и как продолжить запуск. |
+| [AGENTS.md](AGENTS.md) | Инструкции для Codex при работе с этим репозиторием. |
