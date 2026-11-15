@@ -42,4 +42,5 @@ bundle _2.7.1_ exec ruby bin/rails server -b 127.0.0.1
 | [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Как Rails открывает страницу, где находятся данные и как проверяются права. |
 | [TESTING.md](docs/TESTING.md) | Команды автотестов и шаги проверки в браузере. |
 | [STATUS.md](docs/STATUS.md) | Из какой ветки восстановлен блог, что проверено и как продолжить запуск. |
+| [WSL.md](docs/WSL.md) | История настройки WSL, пути установки, расход ресурсов и сравнение Rails с Django. |
 | [AGENTS.md](AGENTS.md) | Инструкции для Codex при работе с этим репозиторием. |
