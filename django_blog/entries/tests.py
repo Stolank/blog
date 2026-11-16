@@ -1,5 +1,8 @@
+from datetime import timedelta
+
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils import timezone
 
 from .models import Article, City
 
@@ -17,13 +20,22 @@ class PublicPagesTests(TestCase):
 
     def test_home_shows_three_most_recent_articles(self):
         articles = [Article.objects.create(title=f"Заметка {number}", content="Текст") for number in range(4)]
+        timestamp = timezone.now() - timedelta(minutes=1)
+        for article in reversed(articles):
+            Article.objects.filter(pk=article.pk).update(published_at=timestamp)
+            timestamp += timedelta(seconds=1)
+        Article.objects.create(title="Черновик", content="Текст")
         response = self.client.get(reverse("home"))
 
-        self.assertEqual(list(response.context["recent_articles"]), list(reversed(articles[1:])))
-        self.assertContains(response, reverse("article_detail", args=[articles[-1].pk]))
+        self.assertEqual(list(response.context["recent_articles"]), articles[:3])
+        self.assertContains(response, articles[0].get_absolute_url())
 
     def test_article_list_links_to_full_text_with_escaped_markup(self):
-        article = Article.objects.create(title="История города", content="<script>example</script>\n\nВторой абзац")
+        article = Article.objects.create(
+            title="История города",
+            content="<script>example</script>\n\nВторой абзац",
+            published_at=timezone.now(),
+        )
         detail_url = reverse("article_detail", args=[article.pk])
 
         self.assertContains(self.client.get(reverse("article_list")), f'href="{detail_url}"')

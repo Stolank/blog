@@ -1,7 +1,7 @@
 <div class="article-feed">
     {% for article in articles %}
         <article class="article-teaser">
-            <time datetime="{{ article.created_at|date:'c' }}" class="article-date">{{ article.created_at|date:"j E Y" }}</time>
+            <time datetime="{{ article.published_at|date:'c' }}" class="article-date">{{ article.published_at|date:"j E Y" }}</time>
             <div>
                 {% if under_section %}
                     <h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>

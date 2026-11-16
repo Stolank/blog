@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
@@ -99,25 +100,65 @@ class AccountsTests(TestCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(Article.objects.exists())
 
-    def test_article_saved_in_admin_is_visible_to_guests(self):
+    def test_article_is_visible_only_after_publication_in_admin(self):
         editor = User.objects.create_superuser(username="editor", password=self.password)
         self.client.force_login(editor)
         title = "Первая прогулка"
         full_text = "Текст новой статьи.\n\nВторой абзац."
 
-        self.assertRedirects(
-            self.client.post(reverse("admin:entries_article_add"), {"title": title, "content": full_text}),
-            reverse("admin:entries_article_changelist"),
-        )
+        admin_list = reverse("admin:entries_article_changelist")
+        fields = {"title": title, "content": full_text}
+        self.assertRedirects(self.client.post(reverse("admin:entries_article_add"), fields), admin_list)
         article = Article.objects.get(title=title)
-        detail_url = reverse("article_detail", args=[article.pk])
+        self.assertIsNone(article.published_at)
+        detail_url = article.get_absolute_url()
         edit_url = reverse("admin:entries_article_change", args=[article.pk])
-        self.assertContains(self.client.get(edit_url), f'href="{detail_url}"')
+        self.assertNotContains(self.client.get(edit_url), f'href="{detail_url}"')
 
         guest = Client()
+        reader = Client()
+        reader.force_login(User.objects.create_user(username="reader"))
+        api_list = reverse("api:articles")
+        api_detail = reverse("api:article", args=[article.pk])
+        publish = {"action": "publish_articles", "_selected_action": [article.pk], "index": "0"}
+        for visitor in (guest, reader):
+            for page in ("home", "article_list"):
+                self.assertNotContains(visitor.get(reverse(page)), title)
+            self.assertEqual(visitor.get(detail_url).status_code, 404)
+            self.assertEqual(visitor.get(api_list, {"q": title}).json()["meta"]["total"], 0)
+            self.assertEqual(visitor.get(api_detail).status_code, 404)
+            self.assertEqual(visitor.post(admin_list, publish).status_code, 302)
+        article.refresh_from_db()
+        self.assertIsNone(article.published_at)
+
+        self.assertRedirects(self.client.post(admin_list, publish), admin_list)
+        article.refresh_from_db()
+        first_publication = article.published_at
+        self.assertIsNotNone(first_publication)
+        self.assertContains(self.client.get(edit_url), f'href="{detail_url}"')
         for page in ("home", "article_list"):
             self.assertContains(guest.get(reverse(page)), f'href="{detail_url}">{title}</a>')
         self.assertContains(guest.get(detail_url), "<p>Второй абзац.</p>")
+        self.assertEqual(guest.get(api_list).json()["meta"]["total"], 1)
+        self.assertEqual(guest.get(api_detail).json()["data"]["content"], full_text)
+
+        self.assertRedirects(self.client.post(admin_list, publish), admin_list)
+        self.assertRedirects(self.client.post(edit_url, fields | {"title": "Новый заголовок"}), admin_list)
+        article.refresh_from_db()
+        self.assertEqual(article.published_at, first_publication)
+        self.assertEqual(article.title, "Новый заголовок")
+
+    def test_staff_with_view_permission_cannot_publish(self):
+        staff = User.objects.create_user(username="reviewer", is_staff=True)
+        staff.user_permissions.add(Permission.objects.get(content_type__app_label="entries", codename="view_article"))
+        self.client.force_login(staff)
+        draft = Article.objects.create(title="Черновик", content="Текст")
+        url = reverse("admin:entries_article_changelist")
+
+        self.assertNotContains(self.client.get(url), "Опубликовать выбранные статьи")
+        self.client.post(url, {"action": "publish_articles", "_selected_action": [draft.pk], "index": "0"})
+        draft.refresh_from_db()
+        self.assertIsNone(draft.published_at)
 
     def test_administrator_can_create_edit_and_delete_both_kinds_of_entry(self):
         User.objects.create_superuser(username="editor", password=self.password)

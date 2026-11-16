@@ -39,14 +39,16 @@ def detail_response(records, pk):
 
 @require_safe
 def articles(request):
+    records = Article.objects.published()
     query = request.GET.get("q", "").strip()
-    records = Article.objects.filter(title__icontains=query) if query else Article.objects.all()
+    if query:
+        records = records.filter(title__icontains=query)
     return list_response(request, records.values(*ARTICLE_FIELDS))
 
 
 @require_safe
 def article(request, pk):
-    return detail_response(Article.objects.values(*ARTICLE_FIELDS), pk)
+    return detail_response(Article.objects.published().values(*ARTICLE_FIELDS), pk)
 
 
 @require_safe

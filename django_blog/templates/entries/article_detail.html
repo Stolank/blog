@@ -6,7 +6,7 @@
     <article class="article-reading">
         <a class="article-back" href="{% url 'article_list' %}">Все статьи</a>
         <header class="article-reading-header">
-            <time datetime="{{ article.created_at|date:'c' }}" class="article-date">{{ article.created_at|date:"j E Y" }}</time>
+            <time datetime="{{ article.published_at|date:'c' }}" class="article-date">{{ article.published_at|date:"j E Y" }}</time>
             <h1>{{ article.title }}</h1>
         </header>
         <div class="article-text">{{ article.content|linebreaks }}</div>

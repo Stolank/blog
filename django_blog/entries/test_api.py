@@ -6,15 +6,19 @@ from urllib.parse import parse_qs, urlsplit
 
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 
 from .models import Article, City, Comment
 
 
 class JournalApiTests(TestCase):
     def test_article_search_pagination_and_detail(self):
-        Article.objects.create(title="Rails", content="Первый текст")
-        expected = Article.objects.create(title="Django на Windows", content="Второй текст")
-        Article.objects.create(title="Django на Mac", content="Третий текст")
+        published_at = timezone.now()
+        Article.objects.create(title="Rails", content="Первый текст", published_at=published_at)
+        expected = Article.objects.create(
+            title="Django на Windows", content="Второй текст", published_at=published_at
+        )
+        Article.objects.create(title="Django на Mac", content="Третий текст", published_at=published_at)
 
         response = self.client.get(reverse("api:articles"), {"q": "django", "page": 2, "per": 1})
         self.assertEqual(response.status_code, 200)

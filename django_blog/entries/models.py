@@ -2,11 +2,19 @@ from django.db import models
 from django.urls import reverse
 
 
+class ArticleQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(published_at__isnull=False).order_by("-published_at", "-pk")
+
+
 class Article(models.Model):
     title = models.CharField("заголовок", max_length=255)
     content = models.TextField("текст")
     created_at = models.DateTimeField("создано", auto_now_add=True)
     updated_at = models.DateTimeField("обновлено", auto_now=True)
+    published_at = models.DateTimeField("дата публикации", null=True, blank=True, editable=False)
+
+    objects = ArticleQuerySet.as_manager()
 
     class Meta:
         ordering = ["-created_at", "-pk"]
