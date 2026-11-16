@@ -39,3 +39,19 @@ tbody tr:last-child > * { border-bottom: 0; }
 .city-facts { margin: 0; }
 .city-facts dt { font-weight: 700; }
 .city-facts dd { margin: 0 0 .7rem; overflow-wrap: anywhere; }
+.account-name { min-width: 0; overflow-wrap: anywhere; color: #d9d9df; }
+.logout-form { margin: 0; }
+.logout-form button { background: transparent; border: 0; padding: 0; color: inherit; font: inherit; cursor: pointer; text-decoration: underline; }
+.logout-form button:focus-visible { outline: .15rem solid currentColor; outline-offset: .25rem; }
+.messages { margin-bottom: 1rem; }
+.messages p { border: 1px solid #b7d8c8; border-radius: .4rem; background: #edf8f2; color: #19452f; padding: .7rem 1rem; }
+.account-card { max-width: 30rem; }
+.account-form { margin: 1.25rem 0; }
+.account-form label { display: block; font-weight: 600; }
+.account-form div { margin-bottom: 1rem; }
+.account-form input:not([type="hidden"]) { box-sizing: border-box; width: 100%; padding: .6rem .75rem; border: 1px solid #797981; border-radius: .4rem; font: inherit; }
+.account-form :is(input, button):focus-visible { outline: .15rem solid var(--blue); outline-offset: .15rem; }
+.account-form button { font: inherit; cursor: pointer; }
+.account-form .helptext { margin: .35rem 0 0; color: #555; font-size: .9rem; }
+.account-form .helptext ul { margin: .3rem 0 0; padding-left: 1.25rem; }
+.account-form .errorlist { color: #972323; padding-left: 1.25rem; overflow-wrap: anywhere; }

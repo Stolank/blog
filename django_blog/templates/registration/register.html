@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация · OldSchool Journal{% endblock %}
+
+{% block content %}
+    <section class="card account-card" aria-labelledby="account-title">
+        <h1 id="account-title">Регистрация</h1>
+        <form method="post" class="account-form">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <button class="button" type="submit">Зарегистрироваться</button>
+        </form>
+        <p><a href="{% url 'login' %}">Войти в существующую учётную запись</a></p>
+    </section>
+{% endblock %}
