@@ -112,6 +112,8 @@ bundle _2.7.1_ exec ruby bin/rails server -b 127.0.0.1
 | [STATUS.md](docs/STATUS.md) | Из какой ветки восстановлен блог, что проверено и как продолжить запуск. |
 | [DJANGO-PLAN.md](docs/DJANGO-PLAN.md) | Согласованные этапы переноса и проверка результата каждого этапа. |
 | [SITE-ROADMAP.md](docs/SITE-ROADMAP.md) | Предложение по развитию сайта, дизайну, базе, защите и возможному магазину. |
+| [STAGING.md](docs/STAGING.md) | Запуск испытательной версии и восстановление базы. |
+| [FIRST-ISSUE.md](docs/FIRST-ISSUE.md) | Три черновика первого выпуска и шаги публикации через панель. |
 | [STOREFRONT-PROTOTYPE.md](docs/STOREFRONT-PROTOTYPE.md) | Прототип витрины, карта страниц и проект схемы данных магазина. |
 | [WSL.md](docs/WSL.md) | История настройки WSL, пути установки, расход ресурсов и сравнение Rails с Django. |
 | [AGENTS.md](AGENTS.md) | Инструкции для Codex при работе с этим репозиторием. |

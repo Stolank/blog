@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from .models import Article, City
@@ -42,10 +42,18 @@ class PublicPagesTests(TestCase):
         self.assertContains(response, "Казахстан")
         self.assertContains(response, "0,0&nbsp;°C")
 
-    def test_missing_records_return_not_found(self):
-        for route in ("article_detail", "city_detail"):
-            with self.subTest(route=route):
-                self.assertEqual(self.client.get(reverse(route, args=[999])).status_code, 404)
+    @override_settings(DEBUG=False)
+    def test_missing_pages_show_journal_not_found_page(self):
+        paths = [
+            reverse("article_detail", args=[999]),
+            reverse("city_detail", args=[999]),
+            "/missing/",
+        ]
+        for path in paths:
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                self.assertContains(response, "Страница не найдена", status_code=404)
+                self.assertContains(response, 'href="/articles/">Все статьи</a>', status_code=404)
 
     def test_rails_list_addresses_redirect_to_django_lists(self):
         self.assertRedirects(self.client.get("/articles"), reverse("article_list"), status_code=301)

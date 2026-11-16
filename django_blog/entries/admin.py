@@ -13,6 +13,9 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ("title", "updated_at")
     search_fields = ("title", "content")
 
+    def view_on_site(self, obj):
+        return obj.get_absolute_url()
+
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):

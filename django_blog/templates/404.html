@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Страница не найдена · OldSchool Journal{% endblock %}
+
+{% block content %}
+    <section class="article-index">
+        <h1>Страница не найдена</h1>
+        <p>Проверьте адрес или откройте список статей журнала.</p>
+        <a class="button" href="{% url 'article_list' %}">Все статьи</a>
+    </section>
+{% endblock %}

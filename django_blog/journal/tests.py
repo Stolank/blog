@@ -99,6 +99,26 @@ class AccountsTests(TestCase):
         self.assertEqual(response.status_code, 403)
         self.assertFalse(Article.objects.exists())
 
+    def test_article_saved_in_admin_is_visible_to_guests(self):
+        editor = User.objects.create_superuser(username="editor", password=self.password)
+        self.client.force_login(editor)
+        title = "Первая прогулка"
+        full_text = "Текст новой статьи.\n\nВторой абзац."
+
+        self.assertRedirects(
+            self.client.post(reverse("admin:entries_article_add"), {"title": title, "content": full_text}),
+            reverse("admin:entries_article_changelist"),
+        )
+        article = Article.objects.get(title=title)
+        detail_url = reverse("article_detail", args=[article.pk])
+        edit_url = reverse("admin:entries_article_change", args=[article.pk])
+        self.assertContains(self.client.get(edit_url), f'href="{detail_url}"')
+
+        guest = Client()
+        for page in ("home", "article_list"):
+            self.assertContains(guest.get(reverse(page)), f'href="{detail_url}">{title}</a>')
+        self.assertContains(guest.get(detail_url), "<p>Второй абзац.</p>")
+
     def test_administrator_can_create_edit_and_delete_both_kinds_of_entry(self):
         User.objects.create_superuser(username="editor", password=self.password)
         login = self.client.post(reverse("login"), {"username": "editor", "password": self.password})

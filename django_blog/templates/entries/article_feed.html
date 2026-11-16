@@ -4,9 +4,9 @@
             <time datetime="{{ article.created_at|date:'c' }}" class="article-date">{{ article.created_at|date:"j E Y" }}</time>
             <div>
                 {% if under_section %}
-                    <h3><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h3>
+                    <h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
                 {% else %}
-                    <h2><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h2>
+                    <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
                 {% endif %}
                 <p>{{ article.content|truncatewords:28 }}</p>
             </div>
