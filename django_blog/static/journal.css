@@ -1,10 +1,10 @@
 :root {
     color-scheme: light;
-    --paper: #eaddba;
+    --paper: #e5d2a2;
     --panel: #eeebdf;
     --ink: #1c2922;
     --green: #254738;
-    --muted: #525b53;
+    --muted: #3d463b;
     --border: #b5a887;
     --white: #f8efd8;
     --serif: "Cormorant Garamond", Georgia, serif;
@@ -12,7 +12,7 @@
     background-color: var(--paper);
     background-image:
         radial-gradient(circle, rgb(92 65 32 / .17) .48px, transparent .76px),
-        linear-gradient(105deg, #d9c694 0%, #f2e7cb 51%, #e6d6b0 100%);
+        linear-gradient(105deg, #d4bd84 0%, var(--paper) 51%, #d9c18a 100%);
     background-size: 5px 5px, 100% 100%;
     font: 1rem/1.6 "DM Sans", system-ui, sans-serif;
 }
@@ -55,7 +55,7 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
 .button:hover { text-decoration: underline; }
 .button:focus-visible { outline-color: var(--green); }
 .journal-issue {
-    --issue-rust: #8a3d27;
+    --issue-rust: #70351f;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, .83fr);
     grid-template-rows: auto 1fr;
