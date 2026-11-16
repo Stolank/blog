@@ -8,15 +8,18 @@
     <link rel="stylesheet" href="{% static 'journal.css' %}">
 </head>
 <body>
+    <a class="skip-link" href="#main">К содержанию</a>
     <header class="site-header">
         <div class="container header-row">
-            <a class="brand" href="{% url 'home' %}">OldSchool Journal</a>
-            <nav class="nav" aria-label="Главное меню">
-                {% with page=request.resolver_match.url_name %}
+            <a class="brand" href="{% url 'home' %}">OldSchool <i>Journal</i></a>
+            {% with page=request.resolver_match.url_name %}
+                <nav class="nav" aria-label="Главное меню">
                     <a href="{% url 'home' %}"{% if page == 'home' %} aria-current="page"{% endif %}>Главная</a>
                     <a href="{% url 'article_list' %}"{% if page == 'article_list' %} aria-current="page"{% elif page == 'article_detail' %} aria-current="location"{% endif %}>Статьи</a>
                     <a href="{% url 'city_list' %}"{% if page == 'city_list' %} aria-current="page"{% elif page == 'city_detail' %} aria-current="location"{% endif %}>Города</a>
                     <a href="{% url 'weather' %}"{% if page == 'weather' %} aria-current="page"{% endif %}>Погода</a>
+                </nav>
+                <nav class="nav account-nav" aria-label="Учётная запись">
                     {% if user.is_authenticated %}
                         {% if user.is_staff %}<a href="{% url 'admin:index' %}">Управление</a>{% endif %}
                         <span class="account-name">{{ user.get_username }}</span>
@@ -28,11 +31,11 @@
                         <a href="{% url 'login' %}"{% if page == 'login' %} aria-current="page"{% endif %}>Войти</a>
                         <a href="{% url 'register' %}"{% if page == 'register' %} aria-current="page"{% endif %}>Регистрация</a>
                     {% endif %}
-                {% endwith %}
-            </nav>
+                </nav>
+            {% endwith %}
         </div>
     </header>
-    <main class="container" id="main">
+    <main class="container" id="main" tabindex="-1">
         {% if messages %}
             <div class="messages" role="status">
                 {% for message in messages %}<p>{{ message }}</p>{% endfor %}

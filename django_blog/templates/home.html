@@ -1,12 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    <div class="card intro">
-        <h1>OldSchool Journal</h1>
-        <p>Учебный блог со статьями и заметками о городах.</p>
-        <div class="intro-links">
-            <a class="button" href="{% url 'article_list' %}">Читать статьи</a>
-            <a class="button secondary" href="{% url 'city_list' %}">Смотреть города</a>
+    <section class="journal-hero" aria-labelledby="journal-title">
+        <div class="journal-hero-copy">
+            <h1 id="journal-title">OldSchool <em>Journal</em></h1>
+            <p>Статьи, заметки о городах и погода.</p>
+            <a class="button" href="{% url 'article_list' %}">Читать журнал</a>
         </div>
-    </div>
+        <img src="{% static 'journal/desk.jpg' %}" width="1536" height="1024"
+             alt="Открытый блокнот на столе у окна с видом на город" fetchpriority="high">
+    </section>
+    <section class="journal-section" aria-labelledby="recent-title">
+        <header class="journal-section-header">
+            <h2 id="recent-title">Последние статьи</h2>
+            {% if recent_articles %}<a href="{% url 'article_list' %}">Все статьи</a>{% endif %}
+        </header>
+        {% include "entries/article_feed.html" with articles=recent_articles under_section=True only %}
+    </section>
 {% endblock %}

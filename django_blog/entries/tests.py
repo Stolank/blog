@@ -15,6 +15,13 @@ class PublicPagesTests(TestCase):
         self.assertContains(self.client.get(reverse("article_list")), "Статей пока нет.")
         self.assertContains(self.client.get(reverse("city_list")), "Городов пока нет.")
 
+    def test_home_shows_three_most_recent_articles(self):
+        articles = [Article.objects.create(title=f"Заметка {number}", content="Текст") for number in range(4)]
+        response = self.client.get(reverse("home"))
+
+        self.assertEqual(list(response.context["recent_articles"]), list(reversed(articles[1:])))
+        self.assertContains(response, reverse("article_detail", args=[articles[-1].pk]))
+
     def test_article_list_links_to_full_text_with_escaped_markup(self):
         article = Article.objects.create(title="История города", content="<script>example</script>\n\nВторой абзац")
         detail_url = reverse("article_detail", args=[article.pk])

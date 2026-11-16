@@ -3,13 +3,10 @@
 {% block title %}Статьи · OldSchool Journal{% endblock %}
 
 {% block content %}
-    <h1>Статьи</h1>
-    {% for article in article_list %}
-        <article class="card entry">
-            <h2><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h2>
-            <p>{{ article.content|truncatewords:32 }}</p>
-        </article>
-    {% empty %}
-        <p class="card">Статей пока нет.</p>
-    {% endfor %}
+    <section class="article-index" aria-labelledby="article-index-title">
+        <header class="article-index-header">
+            <h1 id="article-index-title">Статьи</h1>
+        </header>
+        {% include "entries/article_feed.html" with articles=article_list only %}
+    </section>
 {% endblock %}

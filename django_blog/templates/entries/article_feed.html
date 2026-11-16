@@ -1,0 +1,17 @@
+<div class="article-feed">
+    {% for article in articles %}
+        <article class="article-teaser">
+            <time datetime="{{ article.created_at|date:'c' }}" class="article-date">{{ article.created_at|date:"j E Y" }}</time>
+            <div>
+                {% if under_section %}
+                    <h3><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h3>
+                {% else %}
+                    <h2><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h2>
+                {% endif %}
+                <p>{{ article.content|truncatewords:28 }}</p>
+            </div>
+        </article>
+    {% empty %}
+        <p class="article-empty">Статей пока нет.</p>
+    {% endfor %}
+</div>

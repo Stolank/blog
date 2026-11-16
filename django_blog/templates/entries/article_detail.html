@@ -3,9 +3,12 @@
 {% block title %}{{ article.title }} · OldSchool Journal{% endblock %}
 
 {% block content %}
-    <article class="card entry">
-        <h1>{{ article.title }}</h1>
-        {{ article.content|linebreaks }}
+    <article class="article-reading">
+        <a class="article-back" href="{% url 'article_list' %}">Все статьи</a>
+        <header class="article-reading-header">
+            <time datetime="{{ article.created_at|date:'c' }}" class="article-date">{{ article.created_at|date:"j E Y" }}</time>
+            <h1>{{ article.title }}</h1>
+        </header>
+        <div class="article-text">{{ article.content|linebreaks }}</div>
     </article>
-    <a href="{% url 'article_list' %}">Все статьи</a>
 {% endblock %}
