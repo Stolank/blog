@@ -1,34 +1,12 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OldSchool Journal</title>
-    <style>
-        body {
-            margin: 0;
-            background: #f7f7f9;
-            color: #111;
-            font: 1rem/1.6 system-ui, sans-serif;
-        }
+{% extends "base.html" %}
 
-        main {
-            max-width: 48rem;
-            margin: clamp(2rem, 8vw, 5rem) auto;
-            padding: 0 1.25rem;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: clamp(2rem, 7vw, 3.5rem);
-            line-height: 1.1;
-        }
-    </style>
-</head>
-<body>
-    <main>
+{% block content %}
+    <div class="card intro">
         <h1>OldSchool Journal</h1>
-        <p>Локальный сайт на Django запущен.</p>
-    </main>
-</body>
-</html>
+        <p>Учебный блог со статьями и заметками о городах.</p>
+        <div class="intro-links">
+            <a class="button" href="{% url 'article_list' %}">Читать статьи</a>
+            <a class="button secondary" href="{% url 'city_list' %}">Смотреть города</a>
+        </div>
+    </div>
+{% endblock %}

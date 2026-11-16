@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} · OldSchool Journal{% endblock %}
+
+{% block content %}
+    <article class="card entry">
+        <h1>{{ article.title }}</h1>
+        {{ article.content|linebreaks }}
+    </article>
+    <a href="{% url 'article_list' %}">Все статьи</a>
+{% endblock %}

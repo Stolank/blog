@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "entries",
 ]
 
 MIDDLEWARE = [
@@ -73,4 +74,5 @@ LANGUAGE_CODE = "ru"
 TIME_ZONE = "Asia/Qyzylorda"
 USE_TZ = True
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

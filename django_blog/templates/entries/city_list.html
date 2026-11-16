@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Города · OldSchool Journal{% endblock %}
+
+{% block content %}
+    <h1>Города</h1>
+    {% if city_list %}
+        <div class="card city-table">
+            <table aria-label="Список городов">
+                <thead>
+                    <tr><th scope="col">Город</th><th scope="col">Страна</th><th scope="col">Температура</th></tr>
+                </thead>
+                <tbody>
+                    {% for city in city_list %}
+                        <tr>
+                            <th scope="row"><a href="{% url 'city_detail' city.pk %}">{{ city.name }}</a></th>
+                            <td>{{ city.country }}</td>
+                            <td>{{ city.last_temp }}&nbsp;°C</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="card">Городов пока нет.</p>
+    {% endif %}
+{% endblock %}

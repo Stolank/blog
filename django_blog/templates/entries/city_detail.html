@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ city.name }} · OldSchool Journal{% endblock %}
+
+{% block content %}
+    <article class="card entry">
+        <h1>{{ city.name }}</h1>
+        <dl class="city-facts">
+            <dt>Страна</dt>
+            <dd>{{ city.country }}</dd>
+            <dt>Последняя сохранённая температура</dt>
+            <dd>{{ city.last_temp }}&nbsp;°C</dd>
+        </dl>
+    </article>
+    <a href="{% url 'city_list' %}">Все города</a>
+{% endblock %}
