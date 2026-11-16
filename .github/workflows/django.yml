@@ -1,0 +1,46 @@
+name: Django checks
+
+on:
+  push:
+    branches: [codex/oldschool-journal-django]
+  pull_request:
+    branches: [codex/oldschool-journal-django]
+
+permissions:
+  contents: read
+
+jobs:
+  django:
+    name: Tests and migrations (SQLite)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: django_blog
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: django_blog/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check Django settings
+        run: python manage.py check
+
+      - name: Check for missing migrations
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Apply migrations to a fresh database
+        run: python manage.py migrate --noinput
+
+      - name: Run tests
+        run: python manage.py test
