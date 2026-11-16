@@ -41,15 +41,79 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; background: var(--green); border: 1px solid var(--green); border-radius: .25rem; color: #fff; padding: .55rem 1.05rem; text-decoration: none; font-weight: 650; }
 .button:hover { text-decoration: underline; }
 .button:focus-visible { outline-color: var(--green); }
-.journal-hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); background: var(--panel); }
-.journal-hero-copy { align-self: center; padding: clamp(1.5rem, 5vw, 4.5rem); }
-.journal-hero h1 { font-size: clamp(2.55rem, 6vw, 5.1rem); letter-spacing: -.04em; }
-.journal-hero h1 em { display: block; color: var(--green); }
-.journal-hero p { color: var(--muted); margin-block: 1.1rem 1.55rem; }
-.journal-hero img { display: block; width: 100%; height: 100%; min-height: 23rem; object-fit: cover; }
-.journal-section { margin-top: clamp(2.6rem, 6vw, 4.6rem); }
-.journal-section-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .45rem 1rem; margin-bottom: 1.2rem; }
-.journal-section-header h2 { margin: 0; }
+.journal-issue {
+    --issue-rust: #8a3d27;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, .83fr);
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(2rem, 6vw, 5.25rem);
+    row-gap: 2rem;
+    border-top: 1px solid var(--ink);
+    padding-top: clamp(1.1rem, 3vw, 2.25rem);
+}
+.issue-intro { grid-column: 1; grid-row: 1; }
+.issue-edition {
+    color: var(--issue-rust);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+.issue-intro h1 {
+    font-size: clamp(3.2rem, 7vw, 6.45rem);
+    line-height: .96;
+    letter-spacing: -.055em;
+    margin: 0 0 1.1rem;
+}
+.issue-intro h1 em {
+    display: block;
+    color: var(--issue-rust);
+    font-size: .87em;
+    font-weight: inherit;
+}
+.issue-summary {
+    max-width: 33rem;
+    color: var(--muted);
+    font: 1.3rem/1.45 var(--serif);
+    margin: 0;
+}
+.issue-jump { display: none; }
+.issue-cover {
+    position: relative;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    justify-self: end;
+    width: min(100%, 27rem);
+    margin: 0;
+    border: 1px solid #b3a184;
+    background: #192a38;
+    box-shadow: .45rem .55rem 0 #e4dac6;
+}
+.issue-cover img { display: block; width: 100%; height: auto; }
+.issue-cover figcaption {
+    position: absolute;
+    inset: 0 0 auto;
+    padding: .35em .35em 1em;
+    color: #f9e6c1;
+    background: linear-gradient(#12202bce, transparent);
+    font: 700 clamp(1.5rem, 3.6vw, 3.15rem)/1.15 var(--serif);
+    letter-spacing: -.055em;
+    text-align: center;
+}
+.issue-contents { grid-column: 1; grid-row: 2; align-self: start; }
+.issue-contents-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: .25rem 1rem;
+    margin-bottom: .7rem;
+}
+.issue-contents-heading h2 { margin: 0; }
+.issue-contents .article-teaser { padding-block: .75rem; }
+.issue-contents .article-teaser h3 { font-size: clamp(1.25rem, 2.3vw, 1.75rem); }
+.issue-contents .article-teaser p { font-size: .9rem; line-height: 1.45; }
 .article-index { max-width: 52rem; margin-inline: auto; }
 .article-index-header { margin-bottom: 1.5rem; }
 .article-feed { border-top: 1px solid var(--border); }
@@ -95,13 +159,17 @@ tbody tr:last-child > * { border-bottom: 0; }
 @media (max-width: 55rem) {
     .header-row { grid-template-columns: 1fr auto; gap: .25rem 1rem; }
     .header-row > .nav:first-of-type { grid-row: 2; grid-column: 1 / -1; }
+    .issue-contents .article-teaser { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
 }
 
 @media (max-width: 39rem) {
     .container { width: calc(100% - 2rem); }
     .header-row { grid-template-columns: minmax(0, 1fr); padding-block: .7rem; }
     .account-nav { justify-content: start; }
-    .journal-hero { grid-template-columns: minmax(0, 1fr); }
-    .journal-hero img { min-height: 0; height: auto; aspect-ratio: 3 / 2; }
+    .journal-issue { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: 1.4rem; }
+    .issue-intro, .issue-cover, .issue-contents { grid-column: 1; grid-row: auto; }
+    .issue-jump { display: inline-flex; align-items: center; min-height: 2.75rem; margin-top: .45rem; }
+    .issue-cover { justify-self: start; width: min(100%, 21rem); }
+    .issue-cover figcaption { font-size: clamp(1.7rem, 8vw, 2.8rem); }
     .article-teaser { grid-template-columns: minmax(0, 1fr); gap: .35rem; }
 }

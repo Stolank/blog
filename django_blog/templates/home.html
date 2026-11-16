@@ -2,20 +2,24 @@
 {% load static %}
 
 {% block content %}
-    <section class="journal-hero" aria-labelledby="journal-title">
-        <div class="journal-hero-copy">
-            <h1 id="journal-title">OldSchool <em>Journal</em></h1>
-            <p>Статьи, заметки о городах и погода.</p>
-            <a class="button" href="{% url 'article_list' %}">Читать журнал</a>
+    <section class="journal-issue" aria-labelledby="issue-title">
+        <div class="issue-intro">
+            <p class="issue-edition">Первый выпуск</p>
+            <h1 id="issue-title">Город с <em>блокнотом</em></h1>
+            <p class="issue-summary">Прогулка по Кызылорде, заметки о знакомых улицах и короткая памятка о погоде.</p>
+            {% if recent_articles %}<a class="issue-jump" href="#contents-title">К оглавлению</a>{% endif %}
         </div>
-        <img src="{% static 'journal/desk.jpg' %}" width="1536" height="1024"
-             alt="Открытый блокнот на столе у окна с видом на город" fetchpriority="high">
-    </section>
-    <section class="journal-section" aria-labelledby="recent-title">
-        <header class="journal-section-header">
-            <h2 id="recent-title">Последние статьи</h2>
-            {% if recent_articles %}<a href="{% url 'article_list' %}">Все статьи</a>{% endif %}
-        </header>
-        {% include "entries/article_feed.html" with articles=recent_articles under_section=True only %}
+        <figure class="issue-cover">
+            <img src="{% static 'journal/city-with-notebook.jpg' %}" width="1024" height="1536"
+                 alt="Рисованная обложка с блокнотом, улицей Кызылорды и тополями на закате" fetchpriority="high">
+            <figcaption>OldSchool Journal</figcaption>
+        </figure>
+        <section class="issue-contents" aria-labelledby="contents-title">
+            <div class="issue-contents-heading">
+                <h2 id="contents-title">Оглавление</h2>
+                <a href="{% url 'article_list' %}">Все статьи</a>
+            </div>
+            {% include "entries/article_feed.html" with articles=recent_articles under_section=True only %}
+        </section>
     </section>
 {% endblock %}
