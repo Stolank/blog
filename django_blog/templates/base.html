@@ -7,7 +7,7 @@
     <title>{% block title %}OldSchool Journal{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'journal.css' %}">
 </head>
-<body>
+<body{% block body_attributes %}{% endblock %}>
     <a class="skip-link" href="#main">К содержанию</a>
     <header class="site-header">
         <div class="container header-row">

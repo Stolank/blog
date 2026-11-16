@@ -1,18 +1,18 @@
 :root {
     color-scheme: light;
-    --paper: #e5d2a2;
-    --panel: #eeebdf;
-    --ink: #1c2922;
-    --green: #254738;
-    --muted: #3d463b;
-    --border: #b5a887;
-    --white: #f8efd8;
+    --paper: #e3e9ee;
+    --panel: #dce5ed;
+    --ink: #18283b;
+    --green: #234869;
+    --muted: #394b61;
+    --border: #b0bfcc;
+    --white: #f2f6fa;
     --serif: "Cormorant Garamond", Georgia, serif;
     color: var(--ink);
     background-color: var(--paper);
     background-image:
-        radial-gradient(circle, rgb(92 65 32 / .17) .48px, transparent .76px),
-        linear-gradient(105deg, #d4bd84 0%, var(--paper) 51%, #d9c18a 100%);
+        radial-gradient(circle, rgb(31 57 82 / .13) .48px, transparent .76px),
+        linear-gradient(105deg, #d5dfe8 0%, var(--paper) 51%, #d9e1ea 100%);
     background-size: 5px 5px, 100% 100%;
     font: 1rem/1.6 "DM Sans", system-ui, sans-serif;
 }
@@ -26,7 +26,7 @@ a:focus-visible { outline: .15rem solid currentColor; outline-offset: .25rem; }
 .container { width: min(72rem, calc(100% - 3rem)); margin-inline: auto; }
 .site-header {
     color: var(--ink);
-    background-color: rgb(117 84 34 / .07);
+    background-color: rgb(27 61 92 / .06);
     border-bottom: 1px solid var(--border);
 }
 .nav { display: flex; flex-wrap: wrap; align-items: center; gap: .1rem 1rem; }
@@ -40,7 +40,7 @@ a:focus-visible { outline: .15rem solid currentColor; outline-offset: .25rem; }
 main { flex: 1; padding-block: clamp(1.3rem, 5vw, 3.5rem) 4rem; }
 .site-footer {
     color: var(--muted);
-    background-color: rgb(117 84 34 / .07);
+    background-color: rgb(27 61 92 / .06);
     border-top: 1px solid var(--border);
     padding-block: 1.4rem;
 }
@@ -54,8 +54,21 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; background: var(--green); border: 1px solid var(--green); border-radius: .25rem; color: #fff; padding: .55rem 1.05rem; text-decoration: none; font-weight: 650; }
 .button:hover { text-decoration: underline; }
 .button:focus-visible { outline-color: var(--green); }
+.issue-page {
+    --ink: #fff6e7;
+    --green: #ffe5ac;
+    --muted: #e2ebf7;
+    --border: rgb(220 235 255 / .36);
+    color: var(--ink);
+    background-color: #12294b;
+    background-image:
+        linear-gradient(90deg, rgb(8 24 50 / .87), rgb(13 36 70 / .59) 57%, rgb(12 34 66 / .14)),
+        url("journal/issue-sky.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.issue-page :is(.site-header, .site-footer, .skip-link) { background-color: rgb(9 24 46 / .84); }
 .journal-issue {
-    --issue-rust: #70351f;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, .83fr);
     grid-template-rows: auto 1fr;
@@ -66,7 +79,7 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
 }
 .issue-intro { grid-column: 1; grid-row: 1; }
 .issue-edition {
-    color: var(--issue-rust);
+    color: var(--green);
     font-size: .78rem;
     font-weight: 700;
     letter-spacing: .15em;
@@ -80,7 +93,7 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
 }
 .issue-intro h1 em {
     display: block;
-    color: var(--issue-rust);
+    color: var(--green);
     font-size: .87em;
     font-weight: inherit;
 }
@@ -99,9 +112,9 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
     justify-self: end;
     width: min(100%, 27rem);
     margin: 0;
-    border: 1px solid #b3a184;
+    border: 1px solid rgb(255 230 181 / .54);
     background: #192a38;
-    box-shadow: .45rem .55rem 0 #c5af80;
+    box-shadow: .45rem .55rem 0 rgb(8 23 43 / .43);
 }
 .issue-cover img { display: block; width: 100%; height: auto; }
 .issue-cover figcaption {
@@ -176,6 +189,14 @@ tbody tr:last-child > * { border-bottom: 0; }
 }
 
 @media (max-width: 39rem) {
+    .issue-page {
+        background-image:
+            linear-gradient(180deg, rgb(7 23 52 / .65), rgb(10 29 58 / .36) 31%, #12294b 51rem),
+            url("journal/issue-sky.jpg");
+        background-position: center, 68% top;
+        background-size: cover, auto 51rem;
+        background-repeat: no-repeat;
+    }
     .container { width: calc(100% - 2rem); }
     .header-row { grid-template-columns: minmax(0, 1fr); padding-block: .7rem; }
     .account-nav { justify-content: start; }
