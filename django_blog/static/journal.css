@@ -59,6 +59,8 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
     --green: #ffe5ac;
     --muted: #e2ebf7;
     --border: rgb(220 235 255 / .36);
+    position: relative;
+    isolation: isolate;
     color: var(--ink);
     background-color: #12294b;
     background-image:
@@ -67,31 +69,29 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
     background-position: center;
     background-size: cover;
 }
+.issue-page::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 48% 0 0;
+    background:
+        linear-gradient(rgb(9 28 57 / .29), rgb(9 28 57 / .29)),
+        url("journal/issue-sky.jpg") right center / cover no-repeat;
+    mask-image: linear-gradient(to right, transparent, black 65%);
+    transform: scaleX(-1);
+    pointer-events: none;
+}
 .issue-page :is(.site-header, .site-footer, .skip-link) { background-color: rgb(9 24 46 / .84); }
 .journal-issue {
-    --issue-frame: rgb(255 230 181 / .54);
-    --issue-shadow: .45rem .55rem 0 rgb(8 23 43 / .43);
-    --sheet-padding: clamp(1rem, 2.5vw, 2rem);
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, .83fr);
     grid-template-rows: auto 1fr;
     column-gap: clamp(2rem, 6vw, 5.25rem);
-    row-gap: 1.55rem;
+    row-gap: 2rem;
     border-top: 1px solid var(--ink);
     padding-top: clamp(1.1rem, 3vw, 2.25rem);
 }
-.journal-issue::before {
-    content: "";
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    border: 1px solid var(--issue-frame);
-    background:
-        linear-gradient(rgb(10 26 49 / .86), rgb(10 26 49 / .83)),
-        url("journal/city-with-notebook.jpg") center 58% / cover;
-    box-shadow: var(--issue-shadow);
-}
-.issue-intro, .issue-contents { position: relative; padding-inline: var(--sheet-padding); }
-.issue-intro { grid-column: 1; grid-row: 1; padding-top: var(--sheet-padding); }
+.issue-intro { grid-column: 1; grid-row: 1; }
 .issue-edition {
     color: var(--green);
     font-size: .78rem;
@@ -126,9 +126,9 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
     justify-self: end;
     width: min(100%, 27rem);
     margin: 0;
-    border: 1px solid var(--issue-frame);
+    border: 1px solid rgb(255 230 181 / .54);
     background: #192a38;
-    box-shadow: var(--issue-shadow);
+    box-shadow: .45rem .55rem 0 rgb(8 23 43 / .43);
 }
 .issue-cover img { display: block; width: 100%; height: auto; }
 .issue-cover figcaption {
@@ -141,7 +141,7 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
     letter-spacing: -.055em;
     text-align: center;
 }
-.issue-contents { grid-column: 1; grid-row: 2; align-self: start; padding-bottom: var(--sheet-padding); }
+.issue-contents { grid-column: 1; grid-row: 2; align-self: start; }
 .issue-contents-heading {
     display: flex;
     flex-wrap: wrap;
@@ -202,17 +202,6 @@ tbody tr:last-child > * { border-bottom: 0; }
     .issue-contents .article-teaser { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
 }
 
-@media (max-width: 48rem) {
-    .journal-issue { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: 1.4rem; }
-    .journal-issue::before { grid-row: 1; }
-    .issue-intro { padding-bottom: var(--sheet-padding); }
-    .issue-cover, .issue-contents { grid-column: 1; grid-row: auto; }
-    .issue-contents { padding: 0; }
-    .issue-jump { display: inline-flex; align-items: center; min-height: 2.75rem; margin-top: .45rem; }
-    .issue-cover { justify-self: start; width: min(100%, 21rem); }
-    .issue-cover figcaption { font-size: clamp(1.7rem, 8vw, 2.8rem); }
-}
-
 @media (max-width: 39rem) {
     .issue-page {
         background-image:
@@ -222,8 +211,14 @@ tbody tr:last-child > * { border-bottom: 0; }
         background-size: cover, auto 51rem;
         background-repeat: no-repeat;
     }
+    .issue-page::before { content: none; }
     .container { width: calc(100% - 2rem); }
     .header-row { grid-template-columns: minmax(0, 1fr); padding-block: .7rem; }
     .account-nav { justify-content: start; }
+    .journal-issue { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: 1.4rem; }
+    .issue-intro, .issue-cover, .issue-contents { grid-column: 1; grid-row: auto; }
+    .issue-jump { display: inline-flex; align-items: center; min-height: 2.75rem; margin-top: .45rem; }
+    .issue-cover { justify-self: start; width: min(100%, 21rem); }
+    .issue-cover figcaption { font-size: clamp(1.7rem, 8vw, 2.8rem); }
     .article-teaser { grid-template-columns: minmax(0, 1fr); gap: .35rem; }
 }
