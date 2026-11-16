@@ -16,6 +16,7 @@
                     <a href="{% url 'home' %}"{% if page == 'home' %} aria-current="page"{% endif %}>Главная</a>
                     <a href="{% url 'article_list' %}"{% if page == 'article_list' %} aria-current="page"{% elif page == 'article_detail' %} aria-current="location"{% endif %}>Статьи</a>
                     <a href="{% url 'city_list' %}"{% if page == 'city_list' %} aria-current="page"{% elif page == 'city_detail' %} aria-current="location"{% endif %}>Города</a>
+                    <a href="{% url 'weather' %}"{% if page == 'weather' %} aria-current="page"{% endif %}>Погода</a>
                     {% if user.is_authenticated %}
                         {% if user.is_staff %}<a href="{% url 'admin:index' %}">Управление</a>{% endif %}
                         <span class="account-name">{{ user.get_username }}</span>

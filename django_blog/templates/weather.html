@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Погода · OldSchool Journal{% endblock %}
+
+{% block content %}
+    <section class="card entry" aria-labelledby="weather-title">
+        <h1 id="weather-title">Погода</h1>
+        <form method="get" class="account-form">
+            {{ form.as_div }}
+            <button class="button" type="submit">Показать погоду</button>
+        </form>
+    </section>
+
+    {% if error %}<p class="card entry" role="alert">{{ error }}</p>{% endif %}
+    {% if weather %}
+        <section class="card entry" aria-labelledby="weather-city">
+            <h2 id="weather-city">{{ weather.город }}</h2>
+            {% if weather.демо %}<p>Демонстрационные данные. Текущая погода не запрашивается.</p>{% endif %}
+            <dl class="city-facts">
+                <dt>Температура</dt><dd>{{ weather.температура }}&nbsp;°C</dd>
+                <dt>Погода</dt><dd>{{ weather.погода }}</dd>
+                {% if not weather.демо %}
+                    <dt>Ощущается как</dt><dd>{{ weather.ощущается_как }}&nbsp;°C</dd>
+                    <dt>Ветер</dt><dd>{{ weather.ветер }}</dd>
+                    <dt>Влажность</dt><dd>{{ weather.влажность }}</dd>
+                    <dt>Давление</dt><dd>{{ weather.давление }}</dd>
+                {% endif %}
+            </dl>
+        </section>
+    {% endif %}
+{% endblock %}

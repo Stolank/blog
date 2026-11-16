@@ -30,3 +30,15 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    body = models.TextField()
+    parent = models.ForeignKey(
+        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="children"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created_at", "pk"]

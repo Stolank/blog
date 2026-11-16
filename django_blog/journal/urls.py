@@ -7,6 +7,7 @@ from .accounts import JournalLoginForm, RegistrationView
 
 
 urlpatterns = [
+    path("api/v1/", include(("entries.api", "api"))),
     path("users/sign_up/", RegistrationView.as_view(), name="register"),
     path("users/sign_in/", LoginView.as_view(authentication_form=JournalLoginForm), name="login"),
     path("users/sign_out/", LogoutView.as_view(), name="logout"),
