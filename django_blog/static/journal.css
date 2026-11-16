@@ -1,15 +1,19 @@
 :root {
     color-scheme: light;
-    --paper: #f8f6ee;
+    --paper: #eaddba;
     --panel: #eeebdf;
     --ink: #1c2922;
     --green: #254738;
     --muted: #525b53;
-    --border: #d7d6c9;
-    --white: #fffcf6;
+    --border: #b5a887;
+    --white: #f8efd8;
     --serif: "Cormorant Garamond", Georgia, serif;
     color: var(--ink);
-    background: var(--paper);
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(circle, rgb(92 65 32 / .17) .48px, transparent .76px),
+        linear-gradient(105deg, #d9c694 0%, #f2e7cb 51%, #e6d6b0 100%);
+    background-size: 5px 5px, 100% 100%;
     font: 1rem/1.6 "DM Sans", system-ui, sans-serif;
 }
 
@@ -20,7 +24,11 @@ a:focus-visible { outline: .15rem solid currentColor; outline-offset: .25rem; }
 .skip-link { position: absolute; z-index: 2; top: .5rem; left: .5rem; padding: .5rem 1rem; background: var(--white); transform: translateY(-160%); }
 .skip-link:focus { transform: none; }
 .container { width: min(72rem, calc(100% - 3rem)); margin-inline: auto; }
-.site-header { color: var(--ink); border-bottom: 1px solid var(--border); }
+.site-header {
+    color: var(--ink);
+    background-color: rgb(117 84 34 / .07);
+    border-bottom: 1px solid var(--border);
+}
 .nav { display: flex; flex-wrap: wrap; align-items: center; gap: .1rem 1rem; }
 .nav a, .logout-form button { display: inline-flex; align-items: center; min-height: 2.5rem; }
 .header-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 1rem 1.5rem; padding-block: 1.15rem; }
@@ -30,7 +38,12 @@ a:focus-visible { outline: .15rem solid currentColor; outline-offset: .25rem; }
 .brand { justify-self: start; font: 700 clamp(1.25rem, 2.8vw, 1.65rem)/1.2 var(--serif); }
 .brand i { font-weight: 400; }
 main { flex: 1; padding-block: clamp(1.3rem, 5vw, 3.5rem) 4rem; }
-.site-footer { color: var(--muted); border-top: 1px solid var(--border); padding-block: 1.4rem; }
+.site-footer {
+    color: var(--muted);
+    background-color: rgb(117 84 34 / .07);
+    border-top: 1px solid var(--border);
+    padding-block: 1.4rem;
+}
 .card { background: var(--white); border: 1px solid var(--border); border-radius: .35rem; padding: clamp(1rem, 3vw, 1.8rem); }
 h1, h2, h3 { margin: 0 0 .7rem; line-height: 1.12; overflow-wrap: anywhere; }
 h1, h2 { font-family: var(--serif); font-weight: 500; }
@@ -88,7 +101,7 @@ p { margin: 0 0 1rem; overflow-wrap: anywhere; }
     margin: 0;
     border: 1px solid #b3a184;
     background: #192a38;
-    box-shadow: .45rem .55rem 0 #e4dac6;
+    box-shadow: .45rem .55rem 0 #c5af80;
 }
 .issue-cover img { display: block; width: 100%; height: auto; }
 .issue-cover figcaption {
