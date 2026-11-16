@@ -2,11 +2,12 @@
 
 ## Django
 
-После [подготовки Django](../README.md#локальный-запуск-django-на-windows) выполните из `blog/django_blog` следующие команды. Первая проверяет настройки проекта, вторая проверяет, что изменения базы применены.
+После подготовки Django на [Windows](../README.md#локальный-запуск-django-на-windows) или [Mac](../README.md#локальный-запуск-django-на-mac) выполните команды из `blog/django_blog`. `check` проверяет настройки, `migrate --check` ищет неприменённые миграции, а `makemigrations --check --dry-run` проверяет, что модели и файлы миграций соответствуют друг другу.
 
 ```powershell
 ..\.venv\Scripts\python.exe manage.py check
 ..\.venv\Scripts\python.exe manage.py migrate --check
+..\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
 ..\.venv\Scripts\python.exe manage.py test
 ```
 
