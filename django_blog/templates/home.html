@@ -1,27 +1,37 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static journal_design %}
 
-{% block body_attributes %} class="issue-page"{% endblock %}
+{% block body_attributes %} class="sky-page issue-page"{% endblock %}
 
 {% block content %}
     <section class="journal-issue" aria-labelledby="issue-title">
         <div class="issue-intro">
             <p class="issue-edition">Первый выпуск</p>
-            <h1 id="issue-title">Город с <em>блокнотом</em></h1>
+            <h1 class="display-title" id="issue-title">Город с <span>блокнотом</span></h1>
             <p class="issue-summary">Прогулка по Алматы, заметки о знакомых улицах и короткая памятка о погоде.</p>
-            {% if recent_articles %}<a class="issue-jump" href="#contents-title">К оглавлению</a>{% endif %}
+            {% if recent_articles %}<a class="issue-jump" href="#contents-title">К оглавлению <span aria-hidden="true">→</span></a>{% endif %}
         </div>
         <figure class="issue-cover">
-            <img src="{% static 'journal/city-with-notebook.jpg' %}" width="1024" height="1536"
-                 alt="Рисованная обложка с блокнотом, городской улицей и тополями на закате" fetchpriority="high">
-            <figcaption>OldSchool Journal</figcaption>
+            <picture>
+                <source media="(max-width: 40rem)" srcset="{% static 'journal/first-issue/cover-mobile.webp' %}">
+                <img src="{% static 'journal/first-issue/cover.webp' %}" width="558" height="825"
+                     alt="Блокнот на городской улице среди деревьев на закате" fetchpriority="high">
+            </picture>
         </figure>
         <section class="issue-contents" aria-labelledby="contents-title">
-            <div class="issue-contents-heading">
-                <h2 id="contents-title">Оглавление</h2>
-                <a href="{% url 'article_list' %}">Все статьи</a>
-            </div>
-            {% include "entries/article_feed.html" with articles=recent_articles under_section=True only %}
+            <h2 id="contents-title" tabindex="-1">Последние статьи</h2>
+            <ul class="issue-links">
+                {% for article in recent_articles %}
+                    {% issue_artwork article as artwork %}
+                    <li>
+                        <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                        {% if artwork.icon %}<img src="{% static artwork.icon %}" alt="" aria-hidden="true">{% endif %}
+                        <span class="issue-arrow" aria-hidden="true">→</span>
+                    </li>
+                {% empty %}
+                    <li class="empty-state">Статей пока нет.</li>
+                {% endfor %}
+            </ul>
         </section>
     </section>
 {% endblock %}

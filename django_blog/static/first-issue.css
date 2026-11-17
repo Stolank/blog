@@ -1,0 +1,247 @@
+:root {
+    --journal-serif: Georgia, "PT Serif", "Times New Roman", serif;
+    --journal-cream: #fff0d2;
+    --journal-gold: #ffc057;
+    --journal-navy: #0c2948;
+    --journal-rule: rgb(255 233 187 / .31);
+}
+
+.container { width: min(87.5%, 90rem); }
+.site-header {
+    color: var(--journal-cream);
+    background: #0b2947;
+    border-color: var(--journal-rule);
+    font: clamp(.93rem, 1.5vw, 1.45rem)/1.2 var(--journal-serif);
+}
+.site-header a:hover, .site-header [aria-current] { color: var(--journal-gold); }
+.header-row { display: flex; gap: clamp(1rem, 3.7vw, 3.5rem); padding: 0; min-height: clamp(3.3rem, 5.4vw, 5.25rem); }
+.brand {
+    position: relative;
+    flex: none;
+    font: italic 600 clamp(1.3rem, 2.8vw, 2.65rem)/1.1 var(--journal-serif);
+    white-space: nowrap;
+}
+.brand::after, .display-title::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: var(--journal-gold);
+    clip-path: polygon(0 80%, 50% 0, 100% 80%);
+}
+.brand::after { width: 33%; margin: .28rem auto 0; opacity: .85; }
+.site-navigation { display: flex; align-items: center; justify-content: space-between; flex: 1; gap: 1rem; }
+.site-navigation > .nav:first-child { flex: 1; justify-content: space-evenly; }
+.nav { gap: .4rem 1rem; }
+.nav a { position: relative; padding-inline: .25rem; }
+.nav a[aria-current] { text-decoration: none; }
+.nav a[aria-current]::after { content: ""; position: absolute; inset: auto 0 -3px; border-bottom: 1px solid currentColor; }
+.account-nav { padding-inline-start: clamp(.6rem, 1.5vw, 1.4rem); border-inline-start: 1px solid var(--journal-rule); font-size: .9em; }
+.account-name { color: inherit; }
+.menu-toggle { display: none; }
+
+.sky-page {
+    background: #103457 url("journal/issue-sky.jpg") center top / cover no-repeat;
+    color: var(--journal-cream);
+    font-family: var(--journal-serif);
+    --ink: var(--journal-cream);
+    --green: var(--journal-gold);
+    --muted: #f6e8cd;
+    --border: var(--journal-rule);
+}
+.sky-page > main { min-height: calc(100svh - 5rem); padding: clamp(1.6rem, 3.1vw, 3rem) 0 4rem; }
+.sky-page .site-header { background: rgb(9 35 61 / .91); }
+.sky-page .site-footer { background: #0b2947; border-color: var(--journal-rule); }
+.sky-page .skip-link { color: var(--journal-navy); }
+.display-title { font: italic 600 clamp(3rem, 6.3vw, 6.05rem)/.98 var(--journal-serif); }
+.display-title::after { width: 30%; max-width: 10rem; height: .23rem; margin-top: .33em; }
+.journal-issue {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: clamp(1.5rem, 4vw, 4rem) clamp(1.4rem, 4vw, 4rem);
+}
+.issue-intro { grid-column: 1; grid-row: 1; }
+.issue-edition { color: var(--journal-gold); margin: 0 0 .3em; font-size: clamp(1rem, 1.83vw, 1.75rem); }
+.issue-intro h1 { margin: 0 0 .33em; font-size: clamp(3rem, 5.7vw, 5.4rem); }
+.issue-intro h1 span { display: block; }
+.issue-summary { max-width: 23em; margin: 0; font-size: clamp(1rem, 1.96vw, 1.86rem); line-height: 1.19; }
+.issue-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: .55em;
+    margin-top: clamp(1.3rem, 4.4vw, 4rem);
+    min-height: 2.75rem;
+    border-bottom: 1px solid currentColor;
+    text-decoration: none;
+    font-size: clamp(1rem, 1.72vw, 1.65rem);
+}
+.issue-jump:hover { text-decoration: underline; }
+.issue-cover { grid-column: 2; grid-row: 1 / span 2; align-self: start; margin: 0; border: 2px solid #b68a40; border-radius: .45rem; overflow: hidden; background: #173954; }
+.issue-cover img { display: block; width: 100%; height: auto; }
+.issue-contents { grid-column: 1; grid-row: 2; align-self: start; border-top: 1px solid var(--journal-rule); }
+.issue-contents h2 {
+    font: 500 clamp(.65rem, 1.31vw, 1.17rem)/1.6 var(--journal-serif);
+    text-transform: uppercase;
+    letter-spacing: .41em;
+    margin: clamp(.6rem, 1.72vw, 1.6rem) 0 .38rem;
+}
+.issue-links { list-style: none; padding: 0; margin: 0; }
+.issue-links li {
+    display: grid;
+    grid-template-columns: clamp(2rem, 4.8vw, 4.5rem) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .55rem;
+    border-bottom: 1px solid var(--journal-rule);
+    min-height: 2.75rem;
+    padding: clamp(.3rem, 1.3vw, 1.2rem) .4rem;
+    font-size: clamp(1rem, 1.76vw, 1.7rem);
+    line-height: 1.2;
+    position: relative;
+}
+.issue-links a { grid-column: 2; grid-row: 1; color: inherit; text-decoration: none; }
+.issue-links a::after { content: ""; position: absolute; inset: 0; }
+.issue-links a:hover { text-decoration: underline; }
+.issue-links img { grid-column: 1; grid-row: 1; width: clamp(1.5rem, 3.55vw, 3.4rem); height: clamp(1.6rem, 2.8vw, 2.6rem); object-fit: contain; }
+.issue-arrow { grid-column: 3; grid-row: 1; color: var(--journal-gold); }
+.issue-links .empty-state { display: block; }
+
+@media (max-width: 65rem) {
+    .header-row { gap: 1rem; }
+    .nav { gap: .2rem .6rem; }
+}
+
+@media (max-width: 52rem) {
+    .header-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0; padding-block: .55rem; }
+    .menu-toggle:not([hidden]) {
+        grid-column: 2;
+        display: grid;
+        place-items: center;
+        min-width: 2.75rem;
+        min-height: 2.75rem;
+        border: 0;
+        color: var(--journal-gold);
+        background: transparent;
+        cursor: pointer;
+    }
+    .menu-toggle:focus-visible { outline: 2px solid currentColor; }
+    .menu-toggle[aria-expanded="false"] + .site-navigation { display: none; }
+    .site-navigation { grid-column: 1 / -1; flex-wrap: wrap; padding-top: .6rem; gap: .1rem .6rem; }
+    .site-navigation > .nav:first-child { justify-content: flex-start; }
+    .account-nav { padding-inline-start: 0; border: 0; }
+}
+
+@media (max-width: 40rem) {
+    .container { width: calc(100% - 3rem); }
+    .issue-page .container { width: min(77%, 27rem); }
+    .header-row { min-height: 2.65rem; padding-block: 0; }
+    .brand { font-size: clamp(1.15rem, 5vw, 1.8rem); }
+    .menu-toggle:not([hidden]) { margin-inline-end: -.55rem; min-height: 2.55rem; }
+    .sky-page > main { min-height: calc(100svh - 2.65rem); padding-top: .65rem; padding-bottom: 2rem; }
+    .issue-page { background-size: auto 100%; background-position: 61% top; }
+    .journal-issue { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; gap: .72rem; }
+    .issue-intro, .issue-cover, .issue-contents { grid-column: 1; grid-row: auto; }
+    .issue-edition { margin-bottom: .22rem; line-height: 1.2; }
+    .issue-intro h1 { font-size: clamp(2.32rem, 10vw, 3.65rem); margin-bottom: .3rem; }
+    .issue-intro h1::after { width: 23%; height: 2px; margin-top: .25rem; }
+    .issue-summary { font-size: clamp(.94rem, 3.7vw, 1.19rem); }
+    .issue-jump {
+        justify-content: center;
+        width: 100%;
+        margin-top: .78rem;
+        min-height: 2.25rem;
+        border: 0;
+        border-radius: .48rem;
+        background: var(--journal-gold);
+        color: var(--journal-navy);
+        font-weight: 600;
+    }
+    .issue-cover { aspect-ratio: 1 / 1.035; border-color: var(--journal-gold); }
+    .issue-contents { border-top: 0; }
+    .issue-contents h2 { margin: .05rem 0 .42rem; padding-bottom: .5rem; border-bottom: 1px solid var(--journal-rule); }
+    .issue-links li { grid-template-columns: 2.7rem minmax(0, 1fr) auto; padding-block: .43rem; }
+    .issue-links img { width: 2.15rem; }
+}
+
+.article-index-header {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-content: start;
+    min-height: clamp(12rem, 17.75vw, 16.5rem);
+    margin: 0;
+}
+.article-index-header::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -1.8rem -7.15% 0 49%;
+    background: url("journal/first-issue/city-panorama.webp") right center / cover no-repeat;
+    mask-image: linear-gradient(90deg, transparent, black 24%), linear-gradient(0deg, transparent, black 19%);
+    mask-composite: intersect;
+}
+.article-index-header .display-title { margin: 0 0 .34em; }
+.article-index-header .display-title::after { width: clamp(4rem, 10vw, 9.5rem); }
+.article-index-header p { max-width: 27em; font-size: clamp(1.05rem, 1.8vw, 1.7rem); line-height: 1.25; }
+.article-feed { border-top: 1px solid var(--journal-rule); }
+.article-teaser {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 26.5%) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(.75rem, 3.2vw, 3rem);
+    padding-block: clamp(.7rem, 1.43vw, 1.3rem);
+    border-bottom: 1px solid var(--journal-rule);
+}
+.article-teaser-text { grid-template-columns: minmax(0, 1fr) auto; }
+.article-teaser h2 { margin: 0 0 .18em; font: italic 600 clamp(1.3rem, 2.8vw, 2.65rem)/1.12 var(--journal-serif); }
+.article-teaser p, .article-empty { margin: 0; color: var(--muted); font-size: clamp(1rem, 1.63vw, 1.5rem); line-height: 1.26; }
+.article-empty { padding-block: 1.2rem; }
+.article-teaser a { color: inherit; text-decoration: none; }
+.article-teaser a::after { content: ""; position: absolute; inset: 0; }
+.article-teaser a:hover { text-decoration: underline; }
+.article-teaser .issue-arrow { font-size: clamp(1.35rem, 2.7vw, 2.45rem); }
+.article-thumb, .article-banner { display: block; width: 100%; height: auto; border: 1px solid #c69a53; border-radius: .55rem; }
+.article-thumb { aspect-ratio: 2.28; object-fit: cover; }
+.article-reading-page > main {
+    width: min(84.5%, 79rem);
+    padding: 0;
+    color: var(--journal-navy);
+    background: #fbebce url("journal/first-issue/paper.webp") center top / 18rem 36rem;
+    box-shadow: 0 0 2rem #071d32a1;
+}
+.article-reading {
+    max-width: 72rem;
+    padding: clamp(1rem, 2.7vw, 2.5rem) clamp(1.1rem, 8vw, 8.5rem) 3.6rem;
+    margin-inline: auto;
+}
+.article-back { display: inline-block; color: inherit; margin-bottom: .65rem; font-size: clamp(.95rem, 1.35vw, 1.25rem); }
+.article-reading-header { margin-bottom: clamp(1rem, 1.9vw, 1.8rem); }
+.article-reading h1 { font-size: clamp(2.1rem, 4.45vw, 4.25rem); line-height: 1.04; margin: 0; }
+.article-reading h1::after { width: clamp(4rem, 10vw, 9.5rem); }
+.article-banner { aspect-ratio: 3.84; object-fit: cover; margin-bottom: clamp(1rem, 2.4vw, 2.25rem); }
+.article-text { font-size: clamp(1.08rem, 2.04vw, 1.95rem); line-height: 1.25; }
+.article-text p { margin-bottom: 1.18em; }
+.article-text::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 37%;
+    background: #b27b31;
+    clip-path: polygon(0 55%, 50% 0, 100% 55%, 50% 100%);
+    margin: 1.6em auto 1em;
+}
+.article-date { display: block; color: #4b5864; font-size: .9rem; text-align: center; }
+
+@media (max-width: 40rem) {
+    .article-index-header { min-height: 9.4rem; }
+    .article-index-header::after { inset: -.65rem -1.5rem 0 22%; opacity: .42; }
+    .article-index-header p { max-width: 23rem; }
+    .article-teaser { grid-template-columns: minmax(0, 27%) minmax(0, 1fr) auto; gap: .55rem; }
+    .article-teaser-text { grid-template-columns: minmax(0, 1fr) auto; }
+    .article-teaser h2 { font-size: 1.22rem; }
+    .article-teaser p { font-size: .92rem; }
+    .article-thumb { aspect-ratio: 1.38; }
+    .article-reading-page > main { width: calc(100% - 1rem); }
+    .article-reading { padding-inline: clamp(1.1rem, 5.5vw, 2rem); }
+    .article-banner { aspect-ratio: 2.1; }
+}

@@ -1,15 +1,14 @@
+{% load static journal_design %}
 <div class="article-feed">
     {% for article in articles %}
-        <article class="article-teaser">
-            <time datetime="{{ article.published_at|date:'c' }}" class="article-date">{{ article.published_at|date:"j E Y" }}</time>
+        {% issue_artwork article as artwork %}
+        <article class="article-teaser{% if not artwork.thumb %} article-teaser-text{% endif %}">
+            {% if artwork.thumb %}<img class="article-thumb" src="{% static artwork.thumb %}" alt="" width="340" height="144">{% endif %}
             <div>
-                {% if under_section %}
-                    <h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
-                {% else %}
-                    <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
-                {% endif %}
-                <p>{{ article.content|truncatewords:28 }}</p>
+                <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
+                <p>{% if artwork.summary %}{{ artwork.summary }}{% else %}{{ article.content|truncatewords:28 }}{% endif %}</p>
             </div>
+            <span class="issue-arrow" aria-hidden="true">→</span>
         </article>
     {% empty %}
         <p class="article-empty">Статей пока нет.</p>

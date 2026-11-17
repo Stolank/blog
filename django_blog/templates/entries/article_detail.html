@@ -1,14 +1,21 @@
 {% extends "base.html" %}
+{% load static journal_design %}
 
 {% block title %}{{ article.title }} · OldSchool Journal{% endblock %}
+{% block body_attributes %} class="sky-page article-reading-page"{% endblock %}
 
 {% block content %}
+    {% issue_artwork article as artwork %}
     <article class="article-reading">
-        <a class="article-back" href="{% url 'article_list' %}">Все статьи</a>
+        <a class="article-back" href="{% url 'article_list' %}"><span aria-hidden="true">← </span>Все статьи</a>
         <header class="article-reading-header">
-            <time datetime="{{ article.published_at|date:'c' }}" class="article-date">{{ article.published_at|date:"j E Y" }}</time>
-            <h1>{{ article.title }}</h1>
+            <h1 class="display-title">{{ article.title }}</h1>
         </header>
+        {% if artwork.banner %}
+            <img class="article-banner" src="{% static artwork.banner %}" width="976" height="252"
+                 alt="Аллея Алматы с деревьями, зданиями и горами на горизонте">
+        {% endif %}
         <div class="article-text">{{ article.content|linebreaks }}</div>
+        <time class="article-date" datetime="{{ article.published_at|date:'c' }}">{{ article.published_at|date:"j E Y" }}</time>
     </article>
 {% endblock %}

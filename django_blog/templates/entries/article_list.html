@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block title %}Статьи · OldSchool Journal{% endblock %}
+{% block body_attributes %} class="sky-page article-index-page"{% endblock %}
 
 {% block content %}
     <section class="article-index" aria-labelledby="article-index-title">
         <header class="article-index-header">
-            <h1 id="article-index-title">Статьи</h1>
+            <h1 class="display-title" id="article-index-title">Статьи</h1>
+            <p>Материалы о прогулках по Алматы: маршруты, наблюдения, городские детали и неспешные истории.</p>
         </header>
         {% include "entries/article_feed.html" with articles=article_list only %}
     </section>
