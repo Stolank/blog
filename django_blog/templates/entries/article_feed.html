@@ -8,7 +8,7 @@
                 <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
                 <p>{% if artwork.summary %}{{ artwork.summary }}{% else %}{{ article.content|truncatewords:28 }}{% endif %}</p>
             </div>
-            <span class="issue-arrow" aria-hidden="true">→</span>
+            <img class="issue-arrow" src="{% static 'journal/first-issue/icon-arrow.png' %}" alt="" aria-hidden="true">
         </article>
     {% empty %}
         <p class="article-empty">Статей пока нет.</p>

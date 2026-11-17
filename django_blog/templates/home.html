@@ -25,8 +25,8 @@
                     {% issue_artwork article as artwork %}
                     <li>
                         <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
-                        {% if artwork.icon %}<img src="{% static artwork.icon %}" alt="" aria-hidden="true">{% endif %}
-                        <span class="issue-arrow" aria-hidden="true">→</span>
+                        {% if artwork.icon %}<img class="contents-icon" src="{% static artwork.icon %}" alt="" aria-hidden="true">{% endif %}
+                        <img class="issue-arrow" src="{% static 'journal/first-issue/icon-arrow.png' %}" alt="" aria-hidden="true">
                     </li>
                 {% empty %}
                     <li class="empty-state">Статей пока нет.</li>
