@@ -1,31 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Погода · OldSchool Journal{% endblock %}
+{% block body_attributes %} class="sky-page weather-page"{% endblock %}
 
 {% block content %}
-    <section class="card entry" aria-labelledby="weather-title">
-        <h1 id="weather-title">Погода</h1>
-        <form method="get" class="account-form">
-            {{ form.as_div }}
-            <button class="button" type="submit">Показать погоду</button>
+    <section class="weather-request" aria-labelledby="weather-title">
+        <h1 class="display-title" id="weather-title">Погода</h1>
+        <form method="get" class="weather-form">
+            {{ form.city.label_tag }}
+            {{ form.city }}
+            <button type="submit" class="button">Найти</button>
+            {{ form.city.errors }}
         </form>
     </section>
 
-    {% if error %}<p class="card entry" role="alert">{{ error }}</p>{% endif %}
+    {% if error %}<p class="weather-alert" role="alert">{{ error }}</p>{% endif %}
     {% if weather %}
-        <section class="card entry" aria-labelledby="weather-city">
-            <h2 id="weather-city">{{ weather.город }}</h2>
-            {% if weather.демо %}<p>Демонстрационные данные. Текущая погода не запрашивается.</p>{% endif %}
-            <dl class="city-facts">
-                <dt>Температура</dt><dd>{{ weather.температура }}&nbsp;°C</dd>
-                <dt>Погода</dt><dd>{{ weather.погода }}</dd>
-                {% if not weather.демо %}
-                    <dt>Ощущается как</dt><dd>{{ weather.ощущается_как }}&nbsp;°C</dd>
-                    <dt>Ветер</dt><dd>{{ weather.ветер }}</dd>
-                    <dt>Влажность</dt><dd>{{ weather.влажность }}</dd>
-                    <dt>Давление</dt><dd>{{ weather.давление }}</dd>
+        <section class="weather-postcard" aria-labelledby="weather-city">
+            <div class="weather-postcard-copy">
+                <h2 id="weather-city">{{ display_city }}</h2>
+                <p class="weather-temperature">{% if weather.температура > 0 %}+{% endif %}{{ weather.температура|floatformat:"-1" }}&nbsp;°C</p>
+                {% if weather.демо %}
+                    <p class="weather-caption"><strong>Демонстрационные данные</strong><i>Пример, не текущая погода</i></p>
+                {% else %}
+                    <p class="weather-caption"><strong>Данные OpenWeather</strong><i>{{ weather.погода }}</i></p>
                 {% endif %}
-            </dl>
+            </div>
+            <img class="weather-art" src="{% if almaty_postcard %}{% static 'journal/first-issue/weather-almaty.webp' %}{% else %}{% static 'journal/first-issue/weather-neutral.webp' %}{% endif %}" alt="" width="637" height="424">
+            {% if not weather.демо %}
+                <dl class="weather-facts">
+                    <div><dt>Ощущается как</dt><dd>{{ weather.ощущается_как }}&nbsp;°C</dd></div>
+                    <div><dt>Ветер</dt><dd>{{ weather.ветер }}</dd></div>
+                    <div><dt>Влажность</dt><dd>{{ weather.влажность }}</dd></div>
+                    <div><dt>Давление</dt><dd>{{ weather.давление }}</dd></div>
+                </dl>
+            {% endif %}
         </section>
     {% endif %}
 {% endblock %}

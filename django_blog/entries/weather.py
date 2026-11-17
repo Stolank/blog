@@ -52,17 +52,42 @@ def fetch_weather(city):
         raise WeatherError("Не удалось получить данные о погоде. Попробуйте позже.", 502) from None
 
 
+DEFAULT_POSTCARD_CITY = "Almaty,KZ"
+POSTCARD_CITY_NAMES = {
+    "almaty": "Алматы",
+    "алматы": "Алматы",
+    "astana": "Астана",
+    "астана": "Астана",
+}
+
+
+def postcard_city(city):
+    name, separator, country = city.casefold().partition(",")
+    if separator and country.strip() != "kz":
+        return None
+    return POSTCARD_CITY_NAMES.get(name.strip())
+
+
 @require_safe
 def weather_page(request):
-    form = WeatherForm(request.GET if "city" in request.GET else {"city": "Almaty"})
+    form = WeatherForm(request.GET if "city" in request.GET else {"city": DEFAULT_POSTCARD_CITY})
     context = {"form": form}
     if not form.is_valid():
         return render(request, "weather.html", context, status=400)
+
+    city = form.cleaned_data["city"] or DEFAULT_POSTCARD_CITY
     try:
-        context["weather"] = fetch_weather(form.cleaned_data["city"] or "Almaty")
+        weather = fetch_weather(city)
     except WeatherError as error:
         context["error"] = str(error)
         return render(request, "weather.html", context, status=error.status)
+
+    local_name = postcard_city(city)
+    context.update(
+        weather=weather,
+        display_city=local_name if weather["демо"] and local_name else weather["город"],
+        almaty_postcard=local_name == "Алматы",
+    )
     return render(request, "weather.html", context)
 
 

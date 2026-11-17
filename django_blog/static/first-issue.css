@@ -245,3 +245,81 @@
     .article-reading { padding-inline: clamp(1.1rem, 5.5vw, 2rem); }
     .article-banner { aspect-ratio: 2.1; }
 }
+
+.weather-page { position: relative; isolation: isolate; }
+.weather-page::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: min(25vw, 24rem);
+    height: min(46vw, 40rem);
+    left: 0;
+    bottom: 0;
+    background: url("journal/first-issue/weather-trees.webp") left bottom / cover no-repeat;
+    mask-image: linear-gradient(90deg, black 55%, transparent), linear-gradient(0deg, black 70%, transparent);
+    mask-composite: intersect;
+}
+.weather-request .display-title { margin: 0 0 .32em; }
+.weather-request .display-title::after { width: clamp(5rem, 11.4vw, 10.5rem); }
+.weather-form {
+    display: grid;
+    grid-template-columns: auto minmax(0, 33.5rem) minmax(6rem, 12.4rem);
+    align-items: center;
+    gap: .6rem clamp(.5rem, 1.72vw, 1.6rem);
+    font-size: clamp(1.05rem, 2.16vw, 2rem);
+}
+.weather-form input, .weather-form .button {
+    font: italic 600 1em/1.15 var(--journal-serif);
+    color: var(--journal-navy);
+    min-height: 2.75rem;
+    padding: .35em .7em;
+    border-radius: .45rem;
+}
+.weather-form input { width: 100%; border: 1px solid #d6a96e; background: #fbedcf; }
+.weather-form .button { border-color: #da9e3e; background: #efa33e; cursor: pointer; }
+.weather-form :is(input, button):focus-visible { outline: 2px solid var(--journal-cream); outline-offset: .2rem; }
+.weather-form .errorlist { grid-column: 1 / -1; margin: 0; padding-left: 1.6rem; }
+.weather-alert { margin-top: 1rem; }
+.weather-postcard {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: center;
+    width: min(82%, 66.3rem);
+    min-height: clamp(15rem, 31.15vw, 29rem);
+    margin: clamp(1.15rem, 3.2vw, 3rem) 1.4% 0 auto;
+    padding: clamp(1.2rem, 3.3vw, 3rem);
+    overflow: hidden;
+    color: var(--journal-navy);
+    background: #f9d49a url("journal/first-issue/paper.webp") center / 17rem 32rem;
+    background-blend-mode: multiply;
+    border: 1px solid #e9c28f;
+    border-radius: clamp(1rem, 2.5vw, 2.25rem);
+    box-shadow: 0 .6rem 1.75rem #071b36b5;
+}
+.weather-art { position: absolute; z-index: -1; right: 1.35%; top: 2%; width: 62%; height: 94%; object-fit: fill; }
+.weather-postcard h2 {
+    display: table;
+    border-bottom: 1px solid #b3824e;
+    padding-bottom: .19em;
+    margin: 0 0 .12em;
+    max-width: 65%;
+    font: italic 600 clamp(2.1rem, 5.5vw, 5.2rem)/1.05 var(--journal-serif);
+}
+.weather-temperature { margin: 0; font: italic 600 clamp(2.7rem, 8.25vw, 7.65rem)/1.15 var(--journal-serif); }
+.weather-caption { border-left: 2px solid #c78e3c; padding-left: .55rem; width: fit-content; max-width: 86%; margin: .55em 0 0; font-size: clamp(.95rem, 1.73vw, 1.62rem); }
+.weather-caption strong { display: block; padding: .18em .65em; background: #f0ab49; font-size: .91em; text-transform: uppercase; }
+.weather-caption i { display: block; margin-top: .29em; }
+.weather-facts { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin: 1rem 0 0; padding: .7rem .85rem; background: #fae7c5ed; }
+.weather-facts dt { font-weight: 600; }
+.weather-facts dd { margin: 0; }
+
+@media (max-width: 40rem) {
+    .weather-form { grid-template-columns: minmax(0, 1fr) minmax(4.4rem, auto); }
+    .weather-form label { grid-column: 1 / -1; }
+    .weather-postcard { width: 100%; margin-right: 0; }
+    .weather-postcard h2 { max-width: 100%; }
+    .weather-art { opacity: .45; object-fit: contain; object-position: right top; width: 65%; }
+    .weather-caption { max-width: 100%; }
+}
